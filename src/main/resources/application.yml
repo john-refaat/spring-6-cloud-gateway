@@ -1,0 +1,31 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9000
+  application:
+    name: spring-6-cloud-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: spring-6-mvc-rest
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/v1/*
+        - id: spring-6-webflux-rest
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v2/*
+        - id: spring-6-webflux-fn-rest
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/v3/*
+#Enable Below For Troubleshooting
+#      httpserver:
+#        wiretap: true
+#      httpclient:
+#        wiretap: true
+#logging:
+#  level:
+#    reactor.netty: trace
