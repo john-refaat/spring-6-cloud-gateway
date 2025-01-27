@@ -12,20 +12,23 @@ spring:
         - id: spring-6-mvc-rest
           uri: http://localhost:8081
           predicates:
-            - Path=/api/v1/*
+            - Path=/api/v1/**
         - id: spring-6-webflux-rest
           uri: http://localhost:8082
           predicates:
-            - Path=/api/v2/*
+            - Path=/api/v2/**
         - id: spring-6-webflux-fn-rest
           uri: http://localhost:8083
           predicates:
-            - Path=/api/v3/*
+            - Path=/api/v3/**
 #Enable Below For Troubleshooting
-#      httpserver:
-#        wiretap: true
-#      httpclient:
-#        wiretap: true
-#logging:
-#  level:
-#    reactor.netty: trace
+      httpserver:
+        wiretap: true
+      httpclient:
+        wiretap: true
+logging:
+  level:
+    root: error
+    reactor.netty: trace
+    org.springframework.cloud.gateway: trace
+    org.springframework.http.server.reactive: trace
