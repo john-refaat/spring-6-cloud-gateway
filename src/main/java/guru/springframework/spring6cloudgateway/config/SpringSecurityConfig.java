@@ -1,13 +1,15 @@
 package guru.springframework.spring6cloudgateway.config;
 
-import org.springframework.boot.actuate.autoconfigure.security.reactive.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.zalando.logbook.HttpLogFormatter;
+import org.zalando.logbook.Sink;
+import org.zalando.logbook.json.JsonHttpLogFormatter;
+import org.zalando.logbook.logstash.LogstashLogbackSink;
 
 /**
  * @author john
@@ -34,4 +36,12 @@ public class SpringSecurityConfig {
                 .oauth2ResourceServer(oAuth2ResourceServerSpec -> oAuth2ResourceServerSpec.jwt(Customizer.withDefaults()))
                 .build();
     }
+
+    @Bean
+    public Sink logbookLogStash() {
+        HttpLogFormatter formatter = new JsonHttpLogFormatter();
+        return new LogstashLogbackSink(formatter);
+    }
+
+
 }
