@@ -32,6 +32,7 @@ public class SpringSecurityConfig {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity security) {
         return security.csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(auth-> auth.pathMatchers("actuator/**").permitAll())
+                .authorizeExchange(auth-> auth.pathMatchers("/oauth2/**", "/oauth2/token").permitAll())
                 .authorizeExchange(authorizeExchangeSpec -> authorizeExchangeSpec.anyExchange().authenticated())
                 .oauth2ResourceServer(oAuth2ResourceServerSpec -> oAuth2ResourceServerSpec.jwt(Customizer.withDefaults()))
                 .build();
